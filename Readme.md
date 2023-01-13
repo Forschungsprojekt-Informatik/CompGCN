@@ -49,7 +49,28 @@ Given node and relation embeddings, CompGCN performs a composition operation φ(
   ```commandline
   pip install torch==1.4.0 --extra-index-url https://download.pytorch.org/whl/cpu
   ```
-  Note this installs the cpu version. If you use CUDA, adapt the commands accordingly [[1](https://pypi.org/project/torch-scatter/), [2](https://pytorch.org/get-started/locally/)].
+  For GPU support (with CUDA 10.1) please run
+  ```commandline
+  pip install --no-index torch_scatter==2.0.4 -f https://data.pyg.org/whl/torch-1.4.0%2Bcu101.html
+  ```
+  and for torch we need to find the specific version because the official installation way is broken[[1](https://github.com/pytorch/pytorch/issues/37113)]:
+  - For Windows (mobile)
+    ```commandline
+    pip install https://download.pytorch.org/whl/cu101/torch-1.4.0-cp37-cp37m-win_amd64.whl
+    ```
+  - For Windows (Desktop)
+    ```commandline
+    pip install https://download.pytorch.org/whl/cu101/torch-1.4.0-cp38-cp38-win_amd64.whl
+    ```
+  - For Linux (mobile)
+    ```commandline
+    pip install https://download.pytorch.org/whl/cu101/torch-1.4.0-cp37-cp37m-linux_x86_64.whl
+    ```
+  - For Linux (Desktop)
+    ```commandline
+    pip install https://download.pytorch.org/whl/cu101/torch-1.4.0-cp38-cp38-linux_x86_64.whl
+    ```
+    
 
 - Execute `./preprocess.sh` for extracting the dataset and setting up the folder hierarchy for experiments.
 
