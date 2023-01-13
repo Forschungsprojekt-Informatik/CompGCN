@@ -35,7 +35,7 @@ We evaluated the CompGCN repository with the following configurations.
   pip install torch==1.4.0 --extra-index-url https://download.pytorch.org/whl/cpu
   ```
 ## pyTorch 1.4, Python 3.x, <=3.7, CUDA 10.1
-- Install all the requirements from `requirements_old.txt.`
+- Install all the requirements from `pip install -r requirements_old.txt`.
   - Note: If issues arise installing torch/torch_scatter or when executing the code, try to install them manually, with the following command:
   ```commandline
   pip install --no-index torch_scatter==2.0.4 -f https://data.pyg.org/whl/torch-1.4.0%2Bcu101.html
@@ -45,7 +45,8 @@ We evaluated the CompGCN repository with the following configurations.
     pip install https://download.pytorch.org/whl/cu101/torch-1.4.0-cp37-cp37m-win_amd64.whl
     ```
 ## pyTorch 1.13.1, Python 3.9, CUDA 11.7
-  For working with a newer Pytorch version and CUDA 11.7 use the following commands and install the dependencies via `pip install -r requirements.txt`.
+- Install all the requirements from `pip install -r requirements.txt`.
+  - Note: If issues arise installing torch/torch_scatter or when executing the code, try to install them manually, with the following command:
   ```commandline
   pip3 install torch==1.13.1 --extra-index-url https://download.pytorch.org/whl/cu117
   ```
