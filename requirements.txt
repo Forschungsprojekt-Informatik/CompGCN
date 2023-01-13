@@ -1,4 +1,4 @@
-torch==1.13.0
+torch==1.13.1
 ordered_set==4.1.0
 numpy==1.24.1
 torch_scatter==2.1.0
