@@ -48,7 +48,7 @@ We evaluated the CompGCN repository with the following configurations.
 - Install all the requirements from `pip install -r requirements.txt`.
   - Note: If issues arise installing torch/torch_scatter or when executing the code, try to install them manually, with the following command:
   ```commandline
-  pip3 install torch==1.13.1 --extra-index-url https://download.pytorch.org/whl/cu117
+  pip install torch==1.13.1 --extra-index-url https://download.pytorch.org/whl/cu117
   ```
   ```commandline
   pip install torch-scatter==2.1.0 -f https://data.pyg.org/whl/torch-1.13.0+cu117.html
