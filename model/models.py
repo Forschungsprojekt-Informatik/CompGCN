@@ -214,3 +214,44 @@ class CompGCN_ConvKB(CompGCNBase):
 		score = score.view(l, self.p.num_ent) 							#bs x num_ent
 
 		return torch.sigmoid(score) 									#bs x num_ent
+
+
+class CompGCN_ComplEx(CompGCNBase):
+	def __init__(self, edge_index, edge_type, params=None):
+		super(self.__class__, self).__init__(edge_index, edge_type, params.num_rel, params)
+		self.drop = torch.nn.Dropout(self.p.hid_drop)
+
+		self.dim = self.p.init_dim
+		self.ent_tot = self.p.num_ent
+		self.rel_tot = self.p.num_rel
+		self.ent_re_embeddings = torch.nn.Embedding(self.ent_tot, self.dim)
+		self.ent_im_embeddings = torch.nn.Embedding(self.ent_tot, self.dim)
+		self.rel_re_embeddings = torch.nn.Embedding(self.rel_tot, self.dim)
+		self.rel_im_embeddings = torch.nn.Embedding(self.rel_tot, self.dim)
+
+		torch.nn.init.xavier_uniform_(self.ent_re_embeddings.weight.data)
+		torch.nn.init.xavier_uniform_(self.ent_im_embeddings.weight.data)
+		torch.nn.init.xavier_uniform_(self.rel_re_embeddings.weight.data)
+		torch.nn.init.xavier_uniform_(self.rel_im_embeddings.weight.data)
+
+	def _calc(self, h_re, h_im, t_re, t_im, r_re, r_im):
+		return torch.sum(
+			h_re * t_re * r_re
+			+ h_im * t_im * r_re
+			+ h_re * t_im * r_im
+			- h_im * t_re * r_im,
+			-1
+		)
+
+	def forward(self, sub, rel):
+		batch_h = data['batch_h']
+		batch_t = data['batch_t']
+		batch_r = data['batch_r']
+		h_re = self.ent_re_embeddings(batch_h)
+		h_im = self.ent_im_embeddings(batch_h)
+		t_re = self.ent_re_embeddings(batch_t)
+		t_im = self.ent_im_embeddings(batch_t)
+		r_re = self.rel_re_embeddings(batch_r)
+		r_im = self.rel_im_embeddings(batch_r)
+		score = self._calc(h_re, h_im, t_re, t_im, r_re, r_im)
+		return score

@@ -180,6 +180,7 @@ class Runner(object):
 		elif model_name.lower()	== 'compgcn_distmult': 	model = CompGCN_DistMult(self.edge_index, self.edge_type, params=self.p)
 		elif model_name.lower()	== 'compgcn_conve': 	model = CompGCN_ConvE(self.edge_index, self.edge_type, params=self.p)
 		elif model_name.lower() == 'compgcn_convkb':    model = CompGCN_ConvKB(self.edge_index, self.edge_type, params=self.p)
+		elif model_name.lower() == 'compgcn_complex':   model = CompGCN_ComplEx(self.edge_index, self.edge_type, params=self.p)
 		else: raise NotImplementedError
 
 		model.to(self.device)
