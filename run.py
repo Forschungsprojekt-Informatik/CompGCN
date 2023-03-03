@@ -373,7 +373,7 @@ class Runner(object):
 		self.load_model(save_path)
 		self.logger.info('Successfully Loaded previous model')
 		results = self.evaluate('test', 0)
-		self.logger.info(results)
+		self.logger.info(f' MR:{results["mr"]},MRR:{results["mrr"]},hits@1:{results["hits@1"]},hits@3:{results["hits@3"]},hits@10:{results["hits@10"]}')
 		print(f' MR:{results["mr"]},MRR:{results["mrr"]},hits@1:{results["hits@1"]},hits@3:{results["hits@3"]},hits@10:{results["hits@10"]}')
 
 	def fit(self):
