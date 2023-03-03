@@ -363,6 +363,11 @@ class Runner(object):
 		self.logger.info('[Epoch:{}]:  Training Loss:{:.4}\n'.format(epoch, loss))
 		return loss
 	def evaluteOnly(self):
+		"""
+		Function to evaluate the model on the test dataset
+
+		The results get saved into the log
+		"""
 
 		save_path = os.path.join('./checkpoints', self.p.name)
 		self.load_model(save_path)
