@@ -440,7 +440,7 @@ if __name__ == '__main__':
 	parser.add_argument('-seed',            dest='seed',            default=41504,  type=int,     	help='Seed for randomization')
 
 	parser.add_argument('-restore',         dest='restore',         action='store_true',            help='Restore from the previously saved model')
-	parser.add_argument('-evaluate', 		dest='evaluate', 		action='store_true', 			help='Whether evaluate the model')
+	parser.add_argument('-evaluate', 		dest='evaluate', 		action='store_true', 			help='Only evaluating a given model, model name must be available in the checkpoints folder')
 	parser.add_argument('-bias',            dest='bias',            action='store_true',            help='Whether to use bias in the model')
 
 	parser.add_argument('-num_bases',	dest='num_bases', 	default=-1,   	type=int, 	help='Number of basis relation vectors to use')
