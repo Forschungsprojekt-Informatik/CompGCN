@@ -105,7 +105,7 @@ We evaluated the CompGCN repository with the following configurations.
   python run.py -name best_model -score_func conve -opn corr 
   
   #### Evaluate an already trained Model:
-  python run.py -name XXX -score_func conve -opn corr
+  python run.py -name XXX -score_func conve -opn corr -evaluate
   ```
 
   - `-score_func` denotes the link prediction score function 
