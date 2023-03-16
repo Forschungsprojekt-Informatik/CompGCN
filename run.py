@@ -272,10 +272,10 @@ class Runner(object):
 		
 		Returns
 		-------
-		resutls:			The evaluation results containing the following:
+		results:			The evaluation results containing the following:
 			results['mr']:         	Average of ranks_left and ranks_right
 			results['mrr']:         Mean Reciprocal Rank
-			results['hits@k']:      Probability of getting the correct preodiction in top-k ranks based on predicted score
+			results['hits@k']:      Probability of getting the correct prediction in top-k ranks based on predicted score
 
 		"""
 		left_results  = self.predict(split=split, mode='tail_batch')
