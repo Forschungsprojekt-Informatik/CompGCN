@@ -362,6 +362,7 @@ class Runner(object):
 		loss = np.mean(losses)
 		self.logger.info('[Epoch:{}]:  Training Loss:{:.4}\n'.format(epoch, loss))
 		return loss
+	
 	def evaluteOnly(self):
 		"""
 		Function to evaluate the model on the test dataset
