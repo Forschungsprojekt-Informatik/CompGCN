@@ -200,7 +200,11 @@ class Runner(object):
 		Returns an optimizer for learning the parameters of the model
 		
 		"""
-		return torch.optim.Adam(parameters, lr=self.p.lr, weight_decay=self.p.l2)
+		if self.p.optimizer == 'Adagrad' :
+			print(f'Using optimizer {self.p.optimizer}')
+			return torch.optim.Adagrad(parameters, lr=self.p.lr, weight_decay=self.p.l2)
+		else:
+			return torch.optim.Adam(parameters, lr=self.p.lr, weight_decay=self.p.l2)
 
 	def read_batch(self, batch, split):
 		"""
@@ -454,6 +458,7 @@ if __name__ == '__main__':
 	parser.add_argument('-gcn_drop',	dest='dropout', 	default=0.1,  	type=float,	help='Dropout to use in GCN Layer')
 	parser.add_argument('-hid_drop',  	dest='hid_drop', 	default=0.3,  	type=float,	help='Dropout after GCN')
 	parser.add_argument('-disable_gnn_encoder', dest='disable_gnn_encoder', default=False, type=bool, help='Disables the GNN encoder layer')
+	parser.add_argument('-optimizer', dest='optimizer', default='Adam', help='Sets the Optimizer to Adagrad')
 
 	# ConvE specific hyperparameters
 	parser.add_argument('-hid_drop2',  	dest='hid_drop2', 	default=0.3,  	type=float,	help='ConvE: Hidden dropout')
