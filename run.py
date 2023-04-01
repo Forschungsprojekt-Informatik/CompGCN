@@ -412,7 +412,7 @@ class Runner(object):
 				if kill_cnt % 10 == 0 and self.p.gamma > 5:
 					self.p.gamma -= 5 
 					self.logger.info('Gamma decay on saturation, updated value of gamma: {}'.format(self.p.gamma))
-				if kill_cnt > 25:
+				if kill_cnt > 501:
 					self.logger.info("Early Stopping!!")
 					break
 
@@ -435,7 +435,7 @@ if __name__ == '__main__':
 	parser.add_argument('-batch',           dest='batch_size',      default=128,    type=int,       help='Batch size')
 	parser.add_argument('-gamma',		type=float,             default=40.0,			help='Margin')
 	parser.add_argument('-gpu',		type=str,               default='0',			help='Set GPU Ids : Eg: For CPU = -1, For Single GPU = 0')
-	parser.add_argument('-epoch',		dest='max_epochs', 	type=int,       default=500,  	help='Number of epochs')
+	parser.add_argument('-epoch',		dest='max_epochs', 	type=int,       default=350,  	help='Number of epochs')
 	parser.add_argument('-l2',		type=float,             default=0.0,			help='L2 Regularization for Optimizer')
 	parser.add_argument('-lr',		type=float,             default=0.001,			help='Starting Learning Rate')
 	parser.add_argument('-lbl_smooth',      dest='lbl_smooth',	type=float,     default=0.1,	help='Label Smoothing')
