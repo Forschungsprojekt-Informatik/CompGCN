@@ -202,7 +202,7 @@ class Runner(object):
 		"""
 		if self.p.optimizer == 'Adagrad':
 			return torch.optim.Adagrad(parameters, lr=self.p.lr, weight_decay=self.p.l2)
-		elif self.p.opimizer == 'Adam':
+		elif self.p.optimizer == 'Adam':
 			return torch.optim.Adam(parameters, lr=self.p.lr, weight_decay=self.p.l2)
 		else:
 			print("Unknown optimizer used! Please use Adam or Adagrad. Aborting!")
