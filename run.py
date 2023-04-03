@@ -455,7 +455,7 @@ if __name__ == '__main__':
 	parser.add_argument('-gcn_drop',	dest='dropout', 	default=0.1,  	type=float,	help='Dropout to use in GCN Layer')
 	parser.add_argument('-hid_drop',  	dest='hid_drop', 	default=0.3,  	type=float,	help='Dropout after GCN')
 	parser.add_argument('-disable_gnn_encoder', dest='disable_gnn_encoder', default=False, type=bool, help='Disables the GNN encoder layer')
-	parser.add_argument('-enable_early_stopping', dest='enable_early_stopping', default=False, type=bool, help='Enables early stopping with after the amount of epochs that were set.')
+	parser.add_argument('-enable_early_stopping', dest='enable_early_stopping', default=False, type=bool, help='Enables early stopping after the amount of epochs that were set.')
 	parser.add_argument('-set_early_stopping_limit', dest='early_stopping_limit', default=25, type=int, help='Sets the amount of epochs after which early stopping can occurr.')
 	# ConvE specific hyperparameters
 	parser.add_argument('-hid_drop2',  	dest='hid_drop2', 	default=0.3,  	type=float,	help='ConvE: Hidden dropout')
