@@ -202,9 +202,11 @@ class Runner(object):
 		"""
 		if self.p.optimizer == 'Adagrad':
 			return torch.optim.Adagrad(parameters, lr=self.p.lr, weight_decay=self.p.l2)
-		else:
+		elif self.p.opimizer == 'Adam':
 			return torch.optim.Adam(parameters, lr=self.p.lr, weight_decay=self.p.l2)
-
+		else:
+			print("Unknown optimizer used! Please use Adam or Adagrad. Aborting!")
+			quit()
 	def read_batch(self, batch, split):
 		"""
 		Function to read a batch of data and move the tensors in batch to CPU/GPU
