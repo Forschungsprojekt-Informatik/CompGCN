@@ -417,7 +417,7 @@ class Runner(object):
 					self.p.gamma -= 5 
 					self.logger.info('Gamma decay on saturation, updated value of gamma: {}'.format(self.p.gamma))
 
-				if self.p.enable_early_stopping & kill_cnt > self.p.early_stopping_limit:
+				if self.p.enable_early_stopping and kill_cnt > self.p.early_stopping_limit:
 					self.logger.info("Early Stopping!!")
 					break
 
