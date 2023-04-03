@@ -1,3 +1,5 @@
+import torch
+
 from helper import *
 from data_loader import *
 
@@ -248,18 +250,20 @@ class Runner(object):
 		}
 		torch.save(state, save_path)
 
-	def load_model(self, load_path):
+	def load_model(self, load_path, enable_cpu_mapping: bool = False):
 		"""
 		Function to load a saved model
 
 		Parameters
 		----------
 		load_path: path to the saved model
-		
-		Returns
+		enable_cpu_mapping when enabled the loaded model should be mapped to cpu
 		-------
 		"""
-		state			= torch.load(load_path)
+		if enable_cpu_mapping:
+			state		= torch.load(load_path, map_location=torch.device('cpu'))
+		else:
+			state		= torch.load(load_path, map_location=torch.device('cuda'))
 		state_dict		= state['state_dict']
 		self.best_val		= state['best_val']
 		self.best_val_mrr	= self.best_val['mrr'] 
@@ -397,7 +401,7 @@ class Runner(object):
 		save_path = os.path.join('./checkpoints', self.p.name)
 
 		if self.p.restore:
-			self.load_model(save_path)
+			self.load_model(save_path, not torch.cuda.is_available())
 			self.logger.info('Successfully Loaded previous model')
 
 		kill_cnt = 0
@@ -416,14 +420,15 @@ class Runner(object):
 				if kill_cnt % 10 == 0 and self.p.gamma > 5:
 					self.p.gamma -= 5 
 					self.logger.info('Gamma decay on saturation, updated value of gamma: {}'.format(self.p.gamma))
-				if kill_cnt > 25:
+
+				if self.p.enable_early_stopping and kill_cnt > self.p.early_stopping_limit:
 					self.logger.info("Early Stopping!!")
 					break
 
 			self.logger.info('[Epoch {}]: Training Loss: {:.5}, Valid MRR: {:.5}\n\n'.format(epoch, train_loss, self.best_val_mrr))
 
 		self.logger.info('Loading best model, Evaluating on Test data')
-		self.load_model(save_path)
+		self.load_model(save_path, not torch.cuda.is_available())
 		test_results = self.evaluate('test', epoch)
 		self.logger.info(test_results)
 
@@ -439,7 +444,7 @@ if __name__ == '__main__':
 	parser.add_argument('-batch',           dest='batch_size',      default=128,    type=int,       help='Batch size')
 	parser.add_argument('-gamma',		type=float,             default=40.0,			help='Margin')
 	parser.add_argument('-gpu',		type=str,               default='0',			help='Set GPU Ids : Eg: For CPU = -1, For Single GPU = 0')
-	parser.add_argument('-epoch',		dest='max_epochs', 	type=int,       default=500,  	help='Number of epochs')
+	parser.add_argument('-epoch',		dest='max_epochs', 	type=int,       default=350,  	help='Number of epochs')
 	parser.add_argument('-l2',		type=float,             default=0.0,			help='L2 Regularization for Optimizer')
 	parser.add_argument('-lr',		type=float,             default=0.001,			help='Starting Learning Rate')
 	parser.add_argument('-lbl_smooth',      dest='lbl_smooth',	type=float,     default=0.1,	help='Label Smoothing')
@@ -459,6 +464,8 @@ if __name__ == '__main__':
 	parser.add_argument('-hid_drop',  	dest='hid_drop', 	default=0.3,  	type=float,	help='Dropout after GCN')
 	parser.add_argument('-disable_gnn_encoder', dest='disable_gnn_encoder', default=False, type=bool, help='Disables the GNN encoder layer')
 	parser.add_argument('-optimizer', dest='optimizer', default='Adam', help='Optimizer to use (Adam/Adagrad, default: Adam)')
+	parser.add_argument('-enable_early_stopping', dest='enable_early_stopping', default=False, type=bool, help='Enables early stopping after the amount of epochs that were set.')
+	parser.add_argument('-early_stopping_limit', dest='early_stopping_limit', default=25, type=int, help='Sets the amount of epochs after which early stopping can occurr.')
 
 	# ConvE specific hyperparameters
 	parser.add_argument('-hid_drop2',  	dest='hid_drop2', 	default=0.3,  	type=float,	help='ConvE: Hidden dropout')
