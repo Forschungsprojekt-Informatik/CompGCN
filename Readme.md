@@ -67,7 +67,7 @@ We evaluated the CompGCN repository with the following configurations.
 # Extracting Loss and Valid MRR values from a log
 The script `extractLossAndMRR.sh` takes the file name as argument. See the example below
 
-```
+```bash
 sh extractLossAndMRR.sh -f=TransE_Corr_codex_s_with_GCN_log
 ```
 
