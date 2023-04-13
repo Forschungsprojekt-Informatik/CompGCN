@@ -1,6 +1,6 @@
 data/*
 checkpoints/*
-log/
+log/*
 .idea
 !log/extractLossAndMRR.sh
 !log/csv_template.csv
