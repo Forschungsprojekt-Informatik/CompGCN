@@ -29,8 +29,8 @@ i=0
 while read -r line
 do 
     if [[ "${line}" == *"Valid MRR:"* ]]; then
-        loss=$(echo ${line} | grep -o -P '(?<=Loss:).*(?=,)')
-        mrr=$(echo ${line} | grep -oP '(?<=Valid MRR: ).*')
+        loss=$(echo "${line}" | grep -o -P '(?<=Loss:).*(?=,)')
+        mrr=$(echo "${line}" | grep -oP '(?<=Valid MRR: ).*')
         echo "${i},${loss},${mrr}" >> "${outputFile}"
         i=$(( i+1 ))
     fi
